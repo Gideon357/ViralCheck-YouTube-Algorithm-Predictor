@@ -1,52 +1,63 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
     <!-- note: ctrl+shift+r to refresh since repl.it caches css-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
     <script src="https://kit.fontawesome.com/a5d65ee1b1.js" crossorigin="anonymous"></script>
-
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>ViralCheck</title>
-</head>
-
-<header class="site-header">
-  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-    <div class="container">
-      <a class="navbar-brand mr-4" href="/">ViralCheck</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+  </head>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='viralcheck.svg') }}" width="30" height="30" class="d-inline-block align-top" alt=""> ViralCheck
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarToggle">
-        <div class="navbar-nav mr-auto">
-          <a class="nav-item nav-link" href="/">Home</a>
-          <a class="nav-item nav-link" href="/advice">Advice</a>
-          <a class="nav-item nav-link" href="/images">Instagram</a>
-        </div>
-        <!-- Navbar Right Side -->
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/login">Login</a>
-          <a class="nav-item nav-link" href="/register">Register</a>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link {{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}"><i class="fas fa-home"></i>  Home</a>
+            <a class="nav-item nav-link {{ 'active' if active_page == 'advice' else '' }}" href="{{ url_for('advice') }}"><i class="fas fa-comments"></i>  Advice</a>
+            <a class="nav-item nav-link {{ 'active' if active_page == 'images' else '' }}" href="{{ url_for('images') }}"><i class="fab fa-instagram"></i>  Instagram</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            <a class="btn btn-outline-success" href="{{ url_for('login') }}" style="margin-right: 16px;">Login</a>
+            <a class="btn btn-success" href="{{ url_for('register') }}">Register</a>
+          </div>
         </div>
       </div>
+    </nav>
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
     </div>
-  </nav>
-</header>
-    <div>
-        {% block content %} {% endblock %}
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</body>
+  </header>
+  <div>
+  {% block content %} {% endblock %}
 
+<!-- Footer Stuff -->
+
+  <footer>
+    Made with ❤️ for 
+    <a href="https://organize.mlh.io/participants/events/3480-notuniversity-hacks" target="_blank" rel="noopener noreferrer"> NotUniversity Hacks</a>
+     | See code <a href="#" target="_blank" rel="noopener noreferrer"> here </a>
+  </footer>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
 </html>

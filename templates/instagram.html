@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% set active_page = "images" %}
 {% block content %}
-<div class="container">
+<div class="container card" id="content" style="padding: 30px;">
     <h1>Instagram Page</h1>
     <div class="row text-center" style="display: flex; flex-wrap: wrap;">
         {% for post in posts %}
@@ -10,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">By {{ post.author }} on {{ post.date_posted }}</p>
-                    <a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-outline-success">View</a>
                 </div>
             </div>
         </div>
