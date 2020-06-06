@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
       <div class="container">
         <a class="navbar-brand mr-4" href="{{ url_for('home') }}">
-        <img src="{{ url_for('static', filename='viralcheck.svg') }}" width="30" height="30" class="d-inline-block align-top" alt=""> ViralCheck
+        <img src="{{ url_for('static', filename='viralcheck.svg') }}" width="30" height="30" class="d-inline-block align-top" alt="">  <b>    Viral Check</b>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,8 +29,13 @@
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
-            <a class="btn btn-outline-success" href="{{ url_for('login') }}" style="margin-right: 16px;">Login</a>
-            <a class="btn btn-success" href="{{ url_for('register') }}">Register</a>
+            {% if current_user.is_authenticated %}
+              <a class="btn btn-outline-success" href="{{ url_for('account') }}" style="margin-right: 16px;">Account</a>
+              <a class="btn btn-outline-success" href="{{ url_for('logout') }}" style="margin-right: 16px;">Logout</a>
+            {% else %}
+              <a class="btn btn-outline-success" href="{{ url_for('login') }}" style="margin-right: 16px;">Login</a>
+              <a class="btn btn-success" href="{{ url_for('register') }}">Register</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -47,8 +52,7 @@
   {% block content %} {% endblock %}
 
 <!-- Footer Stuff -->
-
-  <footer>
+  <footer style="{{ 'display: none;' if active_page == 'home' else '' }}">
     Made with ❤️ for 
     <a href="https://organize.mlh.io/participants/events/3480-notuniversity-hacks" target="_blank" rel="noopener noreferrer"> NotUniversity Hacks</a>
      | See code <a href="#" target="_blank" rel="noopener noreferrer"> here </a>
