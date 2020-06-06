@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, flash
 from main import app, db, bcrypt
 from main.forms import RegistrationForm, LoginForm
 from main.models import User, Post
+from model import likes, views, thumbnail
 from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
@@ -103,4 +104,4 @@ def account():
 
 @app.route('/user')
 def user():
-	return request.form['url']
+	return request.args['url']
